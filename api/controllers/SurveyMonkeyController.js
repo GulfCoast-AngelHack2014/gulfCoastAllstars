@@ -62,7 +62,7 @@ module.exports = {
 			function afterResponses() {
 
 				_.forEach(survey_responses, function (unique_response) {
-					// console.log("Unique Response: " + JSON.stringify(unique_response));
+					console.log("Unique Response: " + JSON.stringify(unique_response));
 
 					var responses = _.clone(Survey, true);
 					// console.log("Cloned: " + JSON.stringify(responses));
@@ -71,7 +71,7 @@ module.exports = {
 						// console.log("Response: " + JSON.stringify(obj));
 						var q_answer = _.find(unique_response.questions, { 'question_id': obj.question_id
 						});
-						// console.log("Q_Answer: " + JSON.stringify(q_answer));
+						console.log("Q_Answer: " + JSON.stringify(q_answer));
 						if(obj.single_select) {
 							_.forEach(obj.response, function (option) {
 								if(option.row != '7631874783') {
@@ -87,7 +87,9 @@ module.exports = {
 							});
 						} else if(obj.multiple_choice) {
 							_.forEach(obj.response, function (option) {
-								health_obj = _.find(q_answer.answers, { 'row': option.row });
+								if(q_answer) {
+									health_obj = _.find(q_answer.answers, { 'row': option.row });
+								}
 								if(health_obj) {
 									parsed_response['q_' + option.label] = 1;
 								} else {
@@ -99,7 +101,7 @@ module.exports = {
 						}
 					});
 					
-					console.log("Parsed: " + JSON.stringify(parsed_response));
+					// console.log("Parsed: " + JSON.stringify(parsed_response));
 					json_export.push(_.clone(parsed_response));
 				});
 

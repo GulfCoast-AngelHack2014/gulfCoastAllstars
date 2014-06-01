@@ -1,14 +1,6 @@
 module.exports.survey = {
   "responses": [
       {
-          "question": "What is your first name?",
-          "question_id": "660949606"
-      },
-      {
-          "question": "What is your last name?",
-          "question_id": "660949634"
-      },
-      {
           "question": "Please enter Birthday",
           "question_id": "660953562"
       },
@@ -38,10 +30,10 @@ module.exports.survey = {
               "label": "address",
               "row": "7631876627"
           },
-          {
-              "label": "address2",
-              "row": "7631876628"
-          },
+          // {
+          //     "label": "address2",
+          //     "row": "7631876628"
+          // },
           {
               "label": "city",
               "row": "7631876629"
@@ -55,6 +47,10 @@ module.exports.survey = {
               "row": "7631876631"
           }
       	]
+      },
+      {
+          "question": "County",
+          "question_id": "660988182"
       },
       {
       	"question": "Which of the health problems have you experienced over the last 5 years",
