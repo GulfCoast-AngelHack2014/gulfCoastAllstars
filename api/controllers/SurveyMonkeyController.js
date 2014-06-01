@@ -13,7 +13,8 @@ module.exports = {
 
 		var respondents = [],
 				survey_responses = [],
-				parsed_response = [],
+				parsed_response = {},
+				json_export = [];
 				Survey = sails.config.survey,
 				SurveyMonkey = sails.config.survey_monkey_api;
 
@@ -73,32 +74,37 @@ module.exports = {
 						// console.log("Q_Answer: " + JSON.stringify(q_answer));
 						if(obj.single_select) {
 							_.forEach(obj.response, function (option) {
-								option.row != q_answer.answers[0].row && delete this;
+								if(option.row != '7631874783') {
+									parsed_response.q_gender = "Female";
+								} else {
+									parsed_response.q_gender = "Male";
+								}
 							});
 						} else if(obj.demographic) {
 							_.forEach(obj.response, function (addr) {
 								addr_obj = _.find(q_answer.answers, { 'row': addr.row });
-								addr.response = addr_obj.text;
+								parsed_response['q_' + addr.label] = addr_obj.text;
 							});
 						} else if(obj.multiple_choice) {
 							_.forEach(obj.response, function (option) {
 								health_obj = _.find(q_answer.answers, { 'row': option.row });
 								if(health_obj) {
-									option.response = 1;
+									parsed_response['q_' + option.label] = 1;
 								} else {
-									option.response = 0;
+									parsed_response['q_' + option.label] = 0;
 								}	
 							});
 						} else {
-							obj.response = q_answer.answers[0].text;
+							parsed_response['q_' + obj.question] = q_answer.answers[0].text;
 						}
 					});
-
-					parsed_response.push(responses);
+					
+					console.log("Parsed: " + JSON.stringify(parsed_response));
+					json_export.push(_.clone(parsed_response));
 				});
 
 				// console.log(JSON.stringify(parsed_response));
-				res.json(parsed_response);
+				res.json(json_export);
 			}
 		}
 	}
