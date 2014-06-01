@@ -30,6 +30,8 @@ module.exports.routes = {
     view: 'homepage'
   },
 
+  '/surveymonkey/getresponses.json': 'SurveyMonkeyController.getresponses'
+
 
   // Custom routes here...
 
