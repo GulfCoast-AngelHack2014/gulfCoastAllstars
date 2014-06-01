@@ -23,7 +23,9 @@
     "grunt-contrib-less": "~0.10.0",
     "grunt-contrib-coffee": "~0.10.1",
     "csvtojson": "~0.3.7",
-    "sails-mongo": "~0.10.0-rc5"
+    "sails-mongo": "~0.10.0-rc5",
+    "surveymonkey": "0.0.4",
+    "request": "~2.36.0"
   },
   "scripts": {
     "start": "node app.js",
